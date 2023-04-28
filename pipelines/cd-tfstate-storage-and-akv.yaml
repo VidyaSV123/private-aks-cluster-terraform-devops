@@ -1,0 +1,26 @@
+trigger:
+- none
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, All. Lets create tfstate storage account to store tfstate and a Keyvault to store the values that can be called securely in variable Group
+  displayName: 'Run a one-line script'
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: '<Name of the Azure Resource Manager service connection>'
+    scriptType: 'bash'
+    scriptLocation: 'scriptPath'
+    scriptPath: '$(System.DefaultWorkingDirectory)/storage-account/create-storage-account.sh'
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: '<Name of the Azure Resource Manager service connection>'
+    scriptType: 'bash'
+    scriptLocation: 'scriptPath'
+    scriptPath: '$(System.DefaultWorkingDirectory)/key-vault/create-key-vault-and-secrets.sh'
+
+    
+
